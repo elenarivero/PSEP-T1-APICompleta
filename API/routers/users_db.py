@@ -73,7 +73,7 @@ async def modify_user(id: str, new_user: User):
 
 @router.delete("/{id}", response_model=User)
 async def delete_user(id:str):
-    found = db_client.local.users.find_one_and_delete({"_id":ObjectId(id)})
+    found = db_client.test.users.find_one_and_delete({"_id":ObjectId(id)})
 
     if not found:
         raise HTTPException(status_code=404, detail="User not found")
@@ -86,7 +86,7 @@ def search_user_id(id: str):
     try:
         # El id en base de datos no se guarda como un string, sino que es un objeto 
         # Realizamos la conversión    
-        user = user_schema(db_client.local.users.find_one({"_id":ObjectId(id)}))
+        user = user_schema(db_client.test.users.find_one({"_id":ObjectId(id)}))
         # Necesitamos convertirlo a un objeto User. 
         return User(**user)
     except:
