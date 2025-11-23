@@ -18,7 +18,7 @@ users_list = []
 async def users():
     # El método find() sin parámetros devuelve todos los registros
     # de la base de datos
-    return users_schema(db_client.local.users.find())
+    return users_schema(db_client.test.users.find())
 
 # Método get tipo query. Sólo busca por id
 @router.get("", response_model=User)
